@@ -4,6 +4,8 @@ This is the grid module. It contains the Grid class and its associated methods.
 
 import random
 
+from math import *
+
 class Grid():
     """
     A class representing the grid from the swap puzzle. It supports rectangular grids. 
@@ -61,6 +63,15 @@ class Grid():
         raise NotImplementedError
 
     def swap(self, cell1, cell2):
+        if cell1[0] == cell2[0] and abs(cell1[1] - cell2[1]) == 1:
+            oldCell1[1] = cell1[1]
+            cell1[1] = cell2[1]
+            cell2[1] = oldCell1[1]
+
+        elif cell1[1] == cell2[1] and abs(cell1[0] - cell2[0]) == 1:
+            oldCell1[0] = cell1[0]
+            cell1[0] = cell2[0]
+            cell2[0] = oldCell1[0]
         """
         Implements the swap operation between two cells. Raises an exception if the swap is not allowed.
 
@@ -112,5 +123,4 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid
-
 
