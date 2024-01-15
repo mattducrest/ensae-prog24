@@ -3,6 +3,7 @@ import sys
 sys.path.append("swap_puzzle/")
 
 import unittest 
+
 from grid import Grid
 
 class Test_Swap(unittest.TestCase):
