@@ -56,6 +56,19 @@ class Grid():
         return f"<grid.Grid: m={self.m}, n={self.n}>"
 
     def is_sorted(self):
+        "ATTENTION PROTOTYPE"
+        L =[]
+        for k in range(m):
+            for i in range (n-1):
+                if (state[k][i] == state[k][i+1]-1):
+                    L.append(True)
+
+        for i in range(len(L)):
+            if L[i] is not True:
+                return False
+        
+        return True
+        
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
