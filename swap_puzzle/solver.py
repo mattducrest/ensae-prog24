@@ -1,5 +1,8 @@
 from grid import Grid
 
+"Idée: partir de la case et trouver le chiffre qui doit y être"
+"Coder un truc du style i*m + l'indice de la colonne (double boucle for?)"
+
 class Solver(): 
     """
     A solver class, to be implemented.
