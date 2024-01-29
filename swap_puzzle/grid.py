@@ -76,15 +76,16 @@ class Grid():
         raise NotImplementedError
 
     def swap(self, cell1, cell2):
-        if cell1[0] == cell2[0] and abs(cell1[1] - cell2[1]) == 1:
-            oldCell1[1] = cell1[1]
-            cell1[1] = cell2[1]
-            cell2[1] = oldCell1[1]
+        i1, j1 = cell1
+        i2, j2 = cell2
 
-        elif cell1[1] == cell2[1] and abs(cell1[0] - cell2[0]) == 1:
-            oldCell1[0] = cell1[0]
-            cell1[0] = cell2[0]
-            cell2[0] = oldCell1[0]
+        if (abs(i1-i2) == 1 and j1 == j2) or (abs(j1-j2) == 1 and i1 == i2) : 
+            S = self.state[i1][j1] 
+            self.state[i1][j1]  = self.state[i2][j2]
+            self.state[i2][j2] = S 
+        
+        else :
+            return None
         """
         Implements the swap operation between two cells. Raises an exception if the swap is not allowed.
 
