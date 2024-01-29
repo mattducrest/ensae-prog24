@@ -58,21 +58,22 @@ class Grid():
     def is_sorted(self):
         "ATTENTION PROTOTYPE"
         L =[]
+        "Verification des diagonales ok"
         for k in range(self.m-1):
             if (self.state[k][self.n-1] == self.state[k+1][0]-1):
                 L.append(True)
             else:
                 L.append(False)
-            print(L)
+        
+        "Verification de l'incrémentation ligne par ligne"
         for k in range(self.m):
             for i in range (self.n-1):
                 if (self.state[k][i] == self.state[k][i+1]-1):
                     L.append(True)
-            else:
-                L.append(False)
-        
-                
+                else:
+                    L.append(False)
 
+        "Verification de tout"
         for i in range(len(L)):
             if L[i] is not True:
                 return False
