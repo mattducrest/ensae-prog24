@@ -7,7 +7,7 @@ import random
 from math import *
 
 class Grid():
-    """
+    """"
     A class representing the grid from the swap puzzle. It supports rectangular grids. 
 
     Attributes: 
@@ -32,7 +32,7 @@ class Grid():
         n: int
             Number of columns in the grid
         initial_state: list[list[int]]
-            The intiail state of the grid. Default is empty (then the grid is created sorted).
+            The intial state of the grid. Default is empty (then the grid is created sorted).
         """
         self.m = m
         self.n = n
@@ -58,22 +58,33 @@ class Grid():
     def is_sorted(self):
         "ATTENTION PROTOTYPE"
         L =[]
-        for k in range(m):
-            for i in range (n-1):
-                if (state[k][i] == state[k][i+1]-1):
+        for k in range(self.m-1):
+            if (self.state[k][self.n-1] == self.state[k+1][0]-1):
+                L.append(True)
+            else:
+                L.append(False)
+            print(L)
+        for k in range(self.m):
+            for i in range (self.n-1):
+                if (self.state[k][i] == self.state[k][i+1]-1):
                     L.append(True)
+            else:
+                L.append(False)
+        
+                
 
         for i in range(len(L)):
             if L[i] is not True:
                 return False
         
         return True
+
         
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+  
 
     def swap(self, cell1, cell2):
         i1, j1 = cell1
@@ -95,7 +106,7 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+    
 
     def swap_seq(self, cell_pair_list):
         """
