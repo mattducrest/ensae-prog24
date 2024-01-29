@@ -86,6 +86,7 @@ class Grid():
         
         else :
             return None
+
         """
         Implements the swap operation between two cells. Raises an exception if the swap is not allowed.
 
@@ -95,9 +96,12 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
 
     def swap_seq(self, cell_pair_list):
+        for k in range(len(cell_pair_list)): 
+            c1, c2 = cell_pair_list[k]
+            self.swap(c1, c2)
+
         """
         Executes a sequence of swaps. 
 
@@ -108,7 +112,6 @@ class Grid():
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
 
     @classmethod
     def grid_from_file(cls, file_name): 
