@@ -11,6 +11,7 @@ class Solver():
             j = 0 
             v = 0
             u = 0
+            cl = 0
             while state[i][j] != k : 
                 if j < self.n - 1 : 
                     j=j+1
@@ -18,18 +19,24 @@ class Solver():
                     j=0 
                     i = i + 1 
 
+            
+
+            # on trouve la ligne sur laquelle le nombre k doit être 
             while k> self.n : 
                 v = k - self.n 
-            
-            while j != v - 1 : 
-                if j < v-1 : 
-                    self.swap((i,j),(i, j+1))
-                    j = j+1
-                else :
-                    self.swap ((i,j),(i, j-1))
-                    j=j-1
-            
-            
+                cl += 1 
+                return cl 
+    
+            # on met le nombre k sur la bonne ligne 
+            while i != cl : 
+                if i < cl : 
+                    self.swap((i,j),(i+1, j))
+                    i = i+1
+                elif i > cl :
+                    self.swap ((i,j),(i-1, j))
+                    i=i-1
+
+
 
         """
         Solves the grid and returns the sequence of swaps at the format 
