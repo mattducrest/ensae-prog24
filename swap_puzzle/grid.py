@@ -153,3 +153,44 @@ class Grid():
             grid = Grid(m, n, initial_state)
         return grid
 
+    # Question 6 : on réfléchit à une représentation des noeuds qui correspond à tous les états de la grille
+
+      def __hash__(self):
+        return hash(tuple(map(tuple, self.state)))
+    # Il faut que les noeds soient de type hashable. Grace à map() on applique la fonction tuple à tous les éléments de la grille
+    # Ainsi chaque ligne de la grille devient un tuple 
+    # Enfin on fait un tuple unique de tous nos tuples 
+    # hash s'assure que le tuple ets bien hashable 
+
+
+
+    def __eq__(self, other):
+        return isinstance(other, Grid) and self.state == other.state
+    
+    # Cette méthode permet de comparer si deux noeuds sont égaux ou non 
+    # On vérifie d'abord que les deux noeuds sont bien des objets de grid 
+    # Puis on les compare 
+
+    # Le problème de cette fonction est qu'elle construit le graph mais ne considérent qu'un swap. Elle n'effectue pas de swaps consécutuifs donc on n'a pas tous les états de la grille 
+    def build_graph(self):
+        graph = {}
+        # Parcourir tous les états possibles de la grille
+        for i in range(self.m): # i représente les lignes
+            for j in range(self.n): # j représente les colonnes 
+                for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]: # on peut aller dans 4 directions : droite bas gauche haut 
+                    ni, nj = i + di, j + dj
+                    while 0 <= ni < self.m and 0 <= nj < self.n: # on vérifie que l'on est pas au bord de la grille 
+                        # Effectuer un coup de swap entre les nombres à la position (i, j) et (ni, nj)
+                        new_state = self.swap(i, j, ni, nj)
+                        if self.state not in graph: # on ne veut pas avoir deux fois le même état de la grille 
+                            graph[self] = [] # on ajoute une nouvelle entrée au dictionnaire graph, sa valeur est vide pour stocker d'éventuels voisins 
+                        if new_state not in graph:
+                            graph[new_state] = []
+                        # Ajouter une arête entre l'état actuel et le nouvel état dans le graphe
+                        graph[self].append(new_state) #On ajoute le nouvel état comme voisin d el'actuel état dans le graph 
+                        graph[new_state].append(self)
+        return graph
+
+     
+
+    
