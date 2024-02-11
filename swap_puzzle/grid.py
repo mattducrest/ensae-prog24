@@ -191,6 +191,8 @@ class Grid():
                         graph[new_state].append(self)
         return graph
 
-     
+     # Méthode qui trouve une solution de longueur optimale pour le swap puzzle 
+
+
 
     
