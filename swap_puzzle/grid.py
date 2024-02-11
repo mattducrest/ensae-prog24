@@ -152,6 +152,21 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid
+    
+
+    def __repgraph__(self) : 
+    # Représentation graphique de la grille 
+    
+         import matplotlib.pyplot as plt 
+         import numpy as np 
+
+    # la matrice que l'on veut afficher 
+         matrice = self.state 
+
+         plt.imshow(matrice, cmap='viridis', interpolation='nearest')
+         plt.colorbar(label='Values')
+         plt.title('représentation graphique de la grille sous forme d une matrice')
+         plt.show()
 
     # Question 6 : on réfléchit à une représentation des noeuds qui correspond à tous les états de la grille
 
