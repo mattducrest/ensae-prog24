@@ -56,7 +56,6 @@ class Grid():
         return f"<grid.Grid: m={self.m}, n={self.n}>"
 
     def is_sorted(self):
-        "ATTENTION PROTOTYPE"
         L =[]
         "Verification des diagonales ok"
         for k in range(self.m-1):
