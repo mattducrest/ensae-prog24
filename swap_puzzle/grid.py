@@ -186,27 +186,34 @@ class Grid():
     # On vérifie d'abord que les deux noeuds sont bien des objets de grid 
     # Puis on les compare 
 
-    # Le problème de cette fonction est qu'elle construit le graph mais ne considérent qu'un swap. Elle n'effectue pas de swaps consécutuifs donc on n'a pas tous les états de la grille 
-    def build_graph(self):
-        graph = {}
-        # Parcourir tous les états possibles de la grille
-        for i in range(self.m): # i représente les lignes
-            for j in range(self.n): # j représente les colonnes 
-                for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]: # on peut aller dans 4 directions : droite bas gauche haut 
-                    ni, nj = i + di, j + dj
-                    while 0 <= ni < self.m and 0 <= nj < self.n: # on vérifie que l'on est pas au bord de la grille 
-                        # Effectuer un coup de swap entre les nombres à la position (i, j) et (ni, nj)
-                        new_state = self.swap(i, j, ni, nj)
-                        if self.state not in graph: # on ne veut pas avoir deux fois le même état de la grille 
-                            graph[self] = [] # on ajoute une nouvelle entrée au dictionnaire graph, sa valeur est vide pour stocker d'éventuels voisins 
-                        if new_state not in graph:
-                            graph[new_state] = []
-                        # Ajouter une arête entre l'état actuel et le nouvel état dans le graphe
-                        graph[self].append(new_state) #On ajoute le nouvel état comme voisin d el'actuel état dans le graph 
-                        graph[new_state].append(self)
-        return graph
+    from intertools import permutations : 
 
-     # Méthode qui trouve une solution de longueur optimale pour le swap puzzle 
+    def construire_le_graph(self): 
+        # on crée une liste avec toutes les listes de permutations possibles de la grille 
+         graph = {}
+         grille_ordonnee = [i for i in range(1, self.n*self.m + 1)]
+         toutes_les_listes = list(intertools.permutations(grille_ordonnee))
+
+         # on va transformer les listes en grilles 
+         for permutation in toutes_les_listes :
+            cl = 0 
+            num = 0
+            for li in range self.m : 
+                while cl < self.n : 
+                    self.state[li][cl] = permutation[num] 
+                    num = num + 1 
+                    cl = cl + 1
+                cl = 0
+            # on sort de cette boucle avec une grille qui correspond à la liste i 
+            # On ajoute les grilles comme noeuds du graph 
+            graph[tuple(map(tuple, self.state))] = [row[:] for row in self.state]
+
+        # on va créer des arrêtes entre deux noeuds si on peut les relier par un swap 
+    
+    
+    
+        
+
 
 
 
