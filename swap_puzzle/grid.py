@@ -170,7 +170,7 @@ class Grid():
 
     # Question 6 : on réfléchit à une représentation des noeuds qui correspond à tous les états de la grille
 
-      def __hash__(self):
+    def __hash__(self):
         return hash(tuple(map(tuple, self.state)))
     # Il faut que les noeds soient de type hashable. Grace à map() on applique la fonction tuple à tous les éléments de la grille
     # Ainsi chaque ligne de la grille devient un tuple 
@@ -186,7 +186,7 @@ class Grid():
     # On vérifie d'abord que les deux noeuds sont bien des objets de grid 
     # Puis on les compare 
 
-    from intertools import permutations : 
+    from intertools import permutations 
 
     def construire_le_graph(self): 
         # on crée une liste avec toutes les listes de permutations possibles de la grille 
@@ -198,18 +198,30 @@ class Grid():
          for permutation in toutes_les_listes :
             cl = 0 
             num = 0
-            for li in range self.m : 
+            for li in range (0,self.m) : 
                 while cl < self.n : 
                     self.state[li][cl] = permutation[num] 
                     num = num + 1 
                     cl = cl + 1
                 cl = 0
-            # on sort de cette boucle avec une grille qui correspond à la liste i 
+            # on sort de cette boucle avec une grille qui correspond à la liste permutation
             # On ajoute les grilles comme noeuds du graph 
             graph[tuple(map(tuple, self.state))] = [row[:] for row in self.state]
 
         # on va créer des arrêtes entre deux noeuds si on peut les relier par un swap 
-    
+         for node in graph : 
+            for li in range(self.m):
+                for cl in range(self.n): 
+                    for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]: # on peut aller dans 4 directions : droite bas gauche haut 
+                        ni, nj = li + di, cl + dj
+                         while 0 <= ni < self.m and 0 <= nj < self.n : # on vérifie que l'on est pas au bord de la grille 
+                        # Effectuer un coup de swap entre les nombres à la position (i, j) et (ni, nj)
+                             new_state = tuple(map(tuple, self.swap(li, cl, ni, nj)))
+                             noeud_correspondant = graph[new_state]
+                             graph[node].append(noeud_correspondant) 
+        
+         return graph 
+
     
     
         
