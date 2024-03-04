@@ -221,6 +221,3 @@ class Grid():
                     graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
 
         return graph_etats_grille 
-        
-
-        
