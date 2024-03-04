@@ -192,7 +192,6 @@ class Grid():
             noeud.append(noeud)
         return noeud # on crée une liste noeud qui contient des tuples qui représentent tous les états de la grille 
 
-    """
     def construire_le_graph(self): 
         noeud = self.liste_de_noeuds()
         graph_etats_grille = Graph(noeud)
@@ -222,39 +221,6 @@ class Grid():
                     graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
 
          return graph_etats_grille 
-        """
+        
 
-         def graph_from_grid(self):
-        """
-        Renvoie le graphe à partir d'une grille,
-        c'est-à-dire tous les états de la grilles possibles (sous forme de tuples de tuples)
-        avec toutes les liaisons posssibles correspondant aux swaps possibles
-        """
-        nodes = self.all_state_grid()
-        graph_grid = Graph(nodes)
-        for grid_tuple in nodes :
-
-            # On convertit le tuple en liste
-            grid_list = [[] for k in range(len(grid_tuple))]
-            for i in range(len(grid_tuple)):
-                for j in range(len(grid_tuple[i])):
-                    grid_list[i].append(grid_tuple[i][j])
-
-            # On crée la grille à partir de la liste
-            grid = Grid(len(grid_list),len(grid_list[0]),grid_list)
-
-            # On fait tous les swaps horizontaux et on ajoute les edges
-            for i in range(grid.n-1):
-                for j in range(grid.m):
-                    grid2 = grid.copy()
-                    grid2.swap((j,i),(j,i+1))
-                    graph_grid.add_edge(grid.grid_as_tuple(),grid2.grid_as_tuple())
-
-            # On fait tous les swaps verticaux on ajoute les edges
-            for i in range(grid.m-1):
-                for j in range(grid.n):
-                    grid2 = grid.copy()
-                    grid2.swap((i,j),(i+1,j))
-                    graph_grid.add_edge(grid.grid_as_tuple(),grid2.grid_as_tuple())
-
-        return graph_grid
+        
