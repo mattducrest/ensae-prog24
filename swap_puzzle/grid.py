@@ -129,34 +129,6 @@ class Grid():
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
 
-    @classmethod
-    def grid_from_file(cls, file_name): 
-        """
-        Creates a grid object from class Grid, initialized with the information from the file file_name.
-        
-        Parameters: 
-        -----------
-        file_name: str
-            Name of the file to load. The file must be of the format: 
-            - first line contains "m n" 
-            - next m lines contain n integers that represent the state of the corresponding cell
-
-        Output: 
-        -------
-        grid: Grid
-            The grid
-        """
-        with open(file_name, "r") as file:
-            m, n = map(int, file.readline().split())
-            initial_state = [[] for i_line in range(m)]
-            for i_line in range(m):
-                line_state = list(map(int, file.readline().split()))
-                if len(line_state) != n: 
-                    raise Exception("Format incorrect")
-                initial_state[i_line] = line_state
-            grid = Grid(m, n, initial_state)
-        return grid
-    
 
     def __repgraph__(self) : 
     # Représentation graphique de la grille 
@@ -220,4 +192,36 @@ class Grid():
                     grille2.swap((ligne,colonne),(ligne+1,colonne))
                     graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
 
+<<<<<<< HEAD
         return graph_etats_grille 
+=======
+        return graph_etats_grille 
+
+    @classmethod
+    def grid_from_file(cls, file_name): 
+        """
+        Creates a grid object from class Grid, initialized with the information from the file file_name.
+        
+        Parameters: 
+        -----------
+        file_name: str
+            Name of the file to load. The file must be of the format: 
+            - first line contains "m n" 
+            - next m lines contain n integers that represent the state of the corresponding cell
+
+        Output: 
+        -------
+        grid: Grid
+            The grid
+        """
+        with open(file_name, "r") as file:
+            m, n = map(int, file.readline().split())
+            initial_state = [[] for i_line in range(m)]
+            for i_line in range(m):
+                line_state = list(map(int, file.readline().split()))
+                if len(line_state) != n: 
+                    raise Exception("Format incorrect")
+                initial_state[i_line] = line_state
+            grid = Grid(m, n, initial_state)
+        return grid        
+>>>>>>> 880fc3c40f70b5bdd1424926d21d9cc39c1b5154
