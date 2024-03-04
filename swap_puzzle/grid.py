@@ -172,7 +172,7 @@ class Grid():
 
     def __hash__(self):
         return hash(tuple(map(tuple, self.state)))
-    # Il faut que les noeds soient de type hashable. Grace à map() on applique la fonction tuple à tous les éléments de la grille
+    # Il faut que les noeuds soient de type hashable. Grace à map() on applique la fonction tuple à tous les éléments de la grille
     # Ainsi chaque ligne de la grille devient un tuple 
     # Enfin on fait un tuple unique de tous nos tuples 
     # hash s'assure que le tuple ets bien hashable 
@@ -186,6 +186,63 @@ class Grid():
     # On vérifie d'abord que les deux noeuds sont bien des objets de grid 
     # Puis on les compare 
 
+
+######
+
+    #on trouve les listes qui correspondent à toutes les permutations de la grille 
+    def permutation(cls, n):
+        liste = list(i, for i in range(1,n+1))
+        return list(permutations(list))
+
+    #on part de ces listes et on les met sous forme de grilles 
+    def liste_de_noeuds(self): 
+        noeud = []
+        liste = Grid.permu(self.n*self.m) #liste de toutes les permutations possibles
+        for i in liste :
+            noeud = []
+            grille = list(i) 
+            #on découpe la liste pour constituer les lignes
+            for k in range(self.m): 
+                node.append(grille[self.n*k:(k+1)*self.n])
+            # on convertit tout en tuples pour que ce soit immuable 
+            for k in range(len(noeud)):
+                noeud[k] = tuple(noeud[k])
+            noeud = tuple(noeud)
+            noeud.append(noeud)
+        return noeud # on crée une liste noeud qui contient des tuples qui représentent tous les états de la grille 
+
+    def construire_le_graph(self): 
+        noeud = self.liste_de_noeuds()
+        graph_etats_grille = Graph(noeud)
+    
+        #noeud est un tuple que l'on convertit en liste 
+        for etat in noeud : 
+            liste_grille = [[] for k in range(len(etat))]
+            for ligne in range(len(etat)):
+                for colonne in range(len(etat[ligne])):
+                    liste_grille[ligne].append(etat[ligne][colonne])
+    
+            #On a obtenu une liste de listes que l'on transforme en grille 
+             grille = Grid(len(liste_grille),len(liste_grille[0]),liste_grille)
+
+             #on crée les arrêtes entre deux grilles reliées par un swap horizontal
+              for colonne in range(grille.n-1):
+                for ligne in range(grille.m):
+                    grille2 = grille.copy()
+                    grille2.swap((ligne,colonne),(ligne, colonne +1))
+                    graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
+            
+            #on fait de même pour deux grilles reliées par un swap vertical 
+            for ligne in range(grid.m-1):
+                for colonne in range(grid.n):
+                    grille2 = grille.copy()
+                    grille2.swap((ligne,colonne),(ligne+1,colonne))
+                    graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
+
+         return graph_etats_grille 
+
+
+#######
     from intertools import permutations 
 
     def construire_le_graph(self): 
@@ -221,6 +278,7 @@ class Grid():
                              graph[node].append(noeud_correspondant) 
         
          return graph 
+
 
     
     
