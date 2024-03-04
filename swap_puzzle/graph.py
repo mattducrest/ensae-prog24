@@ -81,6 +81,8 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
+    import os
+
     def bfs(self):
         """
         Finds a shortest path from src to dst by BFS.  
@@ -112,17 +114,19 @@ class Graph:
                         queue.append((neighbor, path + [neighbor]))
             return None
 
-        all_paths = []
-        for src in self.nodes:
-            for dst in self.nodes:
-                if src < dst:  
-                    path = bfs_1(src, dst)
-                    if path:
-                        distance = len(path) - 1
-                        print(f"{src} {dst} {distance} {path}")
-                    else:
-                        print(f"{src} {dst} None")
+        output_file = self.os.path.join("tests", "output.txt")
 
+        with open(output_file, 'w') as f:
+            for src in self.nodes:
+                for dst in self.nodes:
+                    if src < dst:
+                        path = bfs_1(src, dst)
+                        if path:
+                            distance = len(path) - 1
+                            f.write(f"{src} {dst} {distance} {path}\n")
+                        else:
+                            f.write(f"{src} {dst} None\n")
+        
     @classmethod
     def graph_from_file(cls, file_name):
         """
