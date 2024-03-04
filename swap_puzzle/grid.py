@@ -129,34 +129,6 @@ class Grid():
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
 
-    @classmethod
-    def grid_from_file(cls, file_name): 
-        """
-        Creates a grid object from class Grid, initialized with the information from the file file_name.
-        
-        Parameters: 
-        -----------
-        file_name: str
-            Name of the file to load. The file must be of the format: 
-            - first line contains "m n" 
-            - next m lines contain n integers that represent the state of the corresponding cell
-
-        Output: 
-        -------
-        grid: Grid
-            The grid
-        """
-        with open(file_name, "r") as file:
-            m, n = map(int, file.readline().split())
-            initial_state = [[] for i_line in range(m)]
-            for i_line in range(m):
-                line_state = list(map(int, file.readline().split()))
-                if len(line_state) != n: 
-                    raise Exception("Format incorrect")
-                initial_state[i_line] = line_state
-            grid = Grid(m, n, initial_state)
-        return grid
-    
 
     def __repgraph__(self) : 
     # Représentation graphique de la grille 
@@ -172,7 +144,7 @@ class Grid():
 
     #on trouve les listes qui correspondent à toutes les permutations de la grille 
     def permutation(cls, n):
-        liste = list(i, for i in range(1,n+1))
+        liste = list(i for i in range(1,n+1))
         return list(permutations(list))
 
     #on part de ces listes et on les met sous forme de grilles. Renvoie tous les états possible de la grille 
@@ -204,10 +176,10 @@ class Grid():
                     liste_grille[ligne].append(etat[ligne][colonne])
     
             #On a obtenu une liste de listes que l'on transforme en grille 
-             grille = Grid(len(liste_grille),len(liste_grille[0]),liste_grille)
+            grille = Grid(len(liste_grille),len(liste_grille[0]),liste_grille)
 
              #on crée les arrêtes entre deux grilles reliées par un swap horizontal
-              for colonne in range(grille.n-1):
+            for colonne in range(grille.n-1):
                 for ligne in range(grille.m):
                     grille2 = grille.copy()
                     grille2.swap((ligne,colonne),(ligne, colonne +1))
@@ -220,6 +192,32 @@ class Grid():
                     grille2.swap((ligne,colonne),(ligne+1,colonne))
                     graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
 
-         return graph_etats_grille 
+        return graph_etats_grille 
 
+    @classmethod
+    def grid_from_file(cls, file_name): 
+        """
+        Creates a grid object from class Grid, initialized with the information from the file file_name.
         
+        Parameters: 
+        -----------
+        file_name: str
+            Name of the file to load. The file must be of the format: 
+            - first line contains "m n" 
+            - next m lines contain n integers that represent the state of the corresponding cell
+
+        Output: 
+        -------
+        grid: Grid
+            The grid
+        """
+        with open(file_name, "r") as file:
+            m, n = map(int, file.readline().split())
+            initial_state = [[] for i_line in range(m)]
+            for i_line in range(m):
+                line_state = list(map(int, file.readline().split()))
+                if len(line_state) != n: 
+                    raise Exception("Format incorrect")
+                initial_state[i_line] = line_state
+            grid = Grid(m, n, initial_state)
+        return grid        
