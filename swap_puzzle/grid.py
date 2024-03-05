@@ -6,6 +6,7 @@ import random
 import copy
 from graph import Graph 
 import matplotlib.pyplot as plt
+from itertools import permutations 
 import numpy as np 
 
 from math import *
@@ -142,14 +143,25 @@ class Grid():
     # Question 6 : on réfléchit à une représentation des noeuds qui correspond à tous les états de la grille
 
     #on trouve les listes qui correspondent à toutes les permutations de la grille 
+    @classmethod
     def permut(cls, n):
         liste = list(i for i in range(1,n+1))
-        return list(permutations(list))
+        return list(permutations(liste))
+    
+    def grilles_comme_tuples(self):
+        """
+        Transforme une grille en tuple
+        """
+        TPL = []
+        for k in range(len(self.state)): #nombre de lignes
+            TPL.append(tuple(self.state[k])) #on rajoute chaque ligne de la grille sous forme de tuple
+        TPL = tuple(TPL) #en fait un tuple de tuples
+        return TPL
 
     #on part de ces listes et on les met sous forme de grilles. Renvoie tous les états possible de la grille 
     def liste_de_noeuds(self): 
         tous_les_noeuds = []
-        liste = Grid.permut(self.n*self.m) #liste de toutes les permutations possibles
+        liste = Grid.permut(self.m*self.m) #liste de toutes les permutations possibles
         for i in liste :
             noeud = []
             grille = list(i) 
@@ -180,16 +192,16 @@ class Grid():
              #on crée les arrêtes entre deux grilles reliées par un swap horizontal
             for colonne in range(grille.n-1):
                 for ligne in range(grille.m):
-                    grille2 = grille.copy()
+                    grille2 = copy.deepcopy(grille)
                     grille2.swap((ligne,colonne),(ligne, colonne +1))
-                    graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
+                    graph_etats_grille.add_edge(grille.grilles_comme_tuples(),grille2.grilles_comme_tuples())
             
             #on fait de même pour deux grilles reliées par un swap vertical 
-            for ligne in range(grid.m-1):
-                for colonne in range(grid.n):
-                    grille2 = grille.copy()
+            for ligne in range(grille.m-1):
+                for colonne in range(grille.n):
+                    grille2 = copy.deepcopy(grille)
                     grille2.swap((ligne,colonne),(ligne+1,colonne))
-                    graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
+                    graph_etats_grille.add_edge(grille.grilles_comme_tuples(),grille2.grilles_comme_tuples())
 
         return graph_etats_grille 
 
