@@ -82,10 +82,9 @@ class Grid():
                 return False
         
         return True
-
         
-        """
-        Checks is the current state of the grid is sorte and returns the answer as a boolean.
+        """ 
+        Checks is the current state of the grid is sorted and returns the answer as a boolean.
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
   
@@ -192,9 +191,6 @@ class Grid():
                     grille2.swap((ligne,colonne),(ligne+1,colonne))
                     graph_etats_grille.add_edge(grille.grid_as_tuple(),grille2.grid_as_tuple())
 
-<<<<<<< HEAD
-        return graph_etats_grille 
-=======
         return graph_etats_grille 
 
     @classmethod
@@ -224,4 +220,5 @@ class Grid():
                 initial_state[i_line] = line_state
             grid = Grid(m, n, initial_state)
         return grid        
->>>>>>> 880fc3c40f70b5bdd1424926d21d9cc39c1b5154
+
+
