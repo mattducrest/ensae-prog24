@@ -18,6 +18,7 @@ class Test_BFS(unittest.TestCase):
             resultat_attendu = file.read()
         
         self.assertEqual(resultat_observe, resultat_attendu)
+        
 if __name__ == '__main__':
     unittest.main()
 

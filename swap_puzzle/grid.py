@@ -129,7 +129,7 @@ class Grid():
         # TODO: implement this function (and remove the line "raise NotImplementedError").
 
 
-    def __repgraph__(self) : 
+    def __representation__(self) : 
     # Représentation graphique de la grille 
     # la matrice que l'on veut afficher 
          matrice = self.state 
