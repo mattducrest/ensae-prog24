@@ -142,35 +142,35 @@ class Grid():
     # Question 6 : on réfléchit à une représentation des noeuds qui correspond à tous les états de la grille
 
     #on trouve les listes qui correspondent à toutes les permutations de la grille 
-    def permutation(cls, n):
+    def permut(cls, n):
         liste = list(i for i in range(1,n+1))
         return list(permutations(list))
 
     #on part de ces listes et on les met sous forme de grilles. Renvoie tous les états possible de la grille 
     def liste_de_noeuds(self): 
-        noeud = []
-        liste = Grid.permutation(self.n*self.m) #liste de toutes les permutations possibles
+        tous_les_noeuds = []
+        liste = Grid.permut(self.n*self.m) #liste de toutes les permutations possibles
         for i in liste :
             noeud = []
             grille = list(i) 
             #on découpe la liste pour constituer les lignes
             for k in range(self.m): 
-                node.append(grille[self.n*k:(k+1)*self.n])
+                noeud.append(grille[self.n*k:(k+1)*self.n])
             # on convertit tout en tuples pour que ce soit immuable 
             for k in range(len(noeud)):
                 noeud[k] = tuple(noeud[k])
             noeud = tuple(noeud)
-            noeud.append(noeud)
-        return noeud # on crée une liste noeud qui contient des tuples qui représentent tous les états de la grille 
+            tous_les_noeuds.append(noeud)
+        return tous_les_noeuds # on crée une liste tous_les_noeuds qui contient des tuples qui représentent tous les états de la grille 
 
     def construire_le_graph(self): 
-        noeud = self.liste_de_noeuds()
-        graph_etats_grille = Graph(noeud)
+        tous_les_noeuds = self.liste_de_noeuds()
+        graph_etats_grille = Graph(tous_les_noeuds)
     
-        #noeud est un tuple que l'on convertit en liste 
-        for etat in noeud : 
-            liste_grille = [[] for k in range(len(etat))]
-            for ligne in range(len(etat)):
+        #tous_les_noeuds est un tuple que l'on convertit en liste 
+        for etat in tous_les_noeuds : 
+            liste_grille = [[] for k in range(len(etat))] #liste vide
+            for ligne in range(len(etat)): 
                 for colonne in range(len(etat[ligne])):
                     liste_grille[ligne].append(etat[ligne][colonne])
     
