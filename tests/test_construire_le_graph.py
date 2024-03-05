@@ -8,9 +8,9 @@ import networkx as nx
 class Test_graph(unittest.TestCase):
 
     def test_construire(self):
-        g= Grid.grid_from_file("input/grid2.in")
+        g= Grid.grid_from_file("input/grid0.in")
         test = g.construire_le_graph()
-        self.assertIsInstance(test, nx.Graph) 
+        self.assertIsInstance(test, Graph.Graph) 
     
 if __name__ == '__main__':
     unittest.main()
