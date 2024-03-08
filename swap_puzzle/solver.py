@@ -79,3 +79,56 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
 "Parce qu'il est plus grand que 1 et plus petit que 5, on est donc coincés"
 """ 
 
+
+     """implémentation de A*
+     """
+
+     @staticmethod
+    def A_star(grid):
+
+        Solution = Grid(grid.m, grid.n).grilles_comme_tuples() 
+        Queue = [(0,grid.grilles_comme_tuples())] 
+        """initialise une liste prioritaire et la grille de départ. Cette liste prioritaire va permettre
+        de choisir le chemin le plus court
+        """
+        visites = [] 
+        Parent = dict() #dictionnaire qui va permettre de retracer le chemin réalisé
+        soltion_trouvee = False #la solution a t'elle été trouvée ?
+
+        while Queue != [] and not(soltion_trouvee) :#tant que la queue n'est pas vide et que l'on a pas trouvé la solution 
+            
+            grille_actuelle = heapq.heappop(Queue) 
+            """récupère et retire de la queue le tuple qui représente la grille actuelle et le chemin le plus court
+            parcouru jusqu'à présent """
+            grille_actuelle = grille_actuelle[1] #on extrait la grille en question
+
+            if grille_actuelle not in visites:
+                visites.append(grille_actuelle) #on a visité la grille actuelle 
+                
+                # On transforme la grille actuelle qui est sous forme de tuple en liste de listes 
+                L = []
+                for k in grille_actuelle :
+                    L.append(list(k)) 
+                
+                grille_a_venir = Grid(len(L),len(L[0]),L).adjacent_grids()
+                
+                for (N,swap) in Next_grids:
+
+                    # On crée une liste de liste à partir du tuple de tuple
+                    L2 = []
+                    for k in N:
+                        L2.append(list(k))
+
+                    if N not in Parent.keys():
+                        Parent[N] = (Current_grid,swap)
+                        heapq.heappush(Queue, (len(Solver.get_solution(Grid(len(L2),len(L2[0]),L2))),N))
+                    if N == Solution:
+                        Found = True
+        
+        path = []
+        N = Solution
+        while N != grid.grilles_comme_tuples():
+            N,swap = Parent[N]
+            path.append(swap)
+        path.reverse()
+        return path
