@@ -81,6 +81,15 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
 
 
      """implémentation de A*
+
+      paramètres: 
+        -----------
+        grid: Grid
+            la grille d'origine
+
+        image: 
+        -------
+        chemin : liste de listes
      """
 
      @staticmethod
@@ -110,25 +119,29 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
                 for k in grille_actuelle :
                     L.append(list(k)) 
                 
-                grille_a_venir = Grid(len(L),len(L[0]),L).adjacent_grids()
+                grilles_a_venir = Grid(len(L),len(L[0]),L).grilles_adjacentes() 
+                #toutes les grilles adjacentes à la grille actuelle et l'action nécessaire pour passer de l'une à l'autre
                 
-                for (N,swap) in Next_grids:
+                for (N,swap) in grilles_a_venir:
 
-                    # On crée une liste de liste à partir du tuple de tuple
-                    L2 = []
-                    for k in N:
-                        L2.append(list(k))
+                    # pour chaque grille adjacente on la transforme en liste de listes
+                    NL = []
+                    for k in N: #k est un tuple qui représente une ligne de la grille
+                        NL.append(list(k))
 
-                    if N not in Parent.keys():
-                        Parent[N] = (Current_grid,swap)
-                        heapq.heappush(Queue, (len(Solver.get_solution(Grid(len(L2),len(L2[0]),L2))),N))
+                    if N not in Parent.keys(): #si on n'a pas encore visité la grille
+                        Parent[N] = (grille_actuelle,swap) #on l'ajoute au dictionnaire la grille N et le chemin parcouru 
+                        heapq.heappush(Queue, (len(Solver.get_solution(Grid(len(NL),len(NL[0]),NL))),N)) 
+                        #ajouter de nouveaux états à la grille tout en maintenant l'ordre de priorité
+                    
                     if N == Solution:
-                        Found = True
+                        soltion_trouvee = True
         
-        path = []
+        chemin = []
         N = Solution
-        while N != grid.grilles_comme_tuples():
-            N,swap = Parent[N]
-            path.append(swap)
-        path.reverse()
-        return path
+        while N != grid.grilles_comme_tuples(): 
+        #tant que la solution n'est pas la grille initiale 
+            N,swap = Parent[N] #on récupère le parant de la grille actuelle et le swap associé
+            chemin.append(swap) #on rajoute le swap au chemin
+            chemin.reverse() #on remet le chemin dans l'ordre
+        return chemin

@@ -227,12 +227,12 @@ class Grid():
         """
         Génère toutes les grilles atteignables en un swap à partir d'une grille donnée
 
-        Parameters: 
+        paramètres: 
         -----------
         grid: Grid
             la grille d'origine
 
-        Output: 
+        image: 
         -------
         liste_adj : list[tuple]
             une liste de tuples
