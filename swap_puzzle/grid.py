@@ -11,6 +11,10 @@ import numpy as np
 
 from math import *
 
+
+
+
+
 class Grid():
     """"
     A class representing the grid from the swap puzzle. It supports rectangular grids. 
@@ -145,65 +149,50 @@ class Grid():
     #on trouve les listes qui correspondent à toutes les permutations de la grille 
     @classmethod
     def permut(cls, n):
-        liste = list(i for i in range(1,n+1))
-        return list(permutations(liste))
-    
+        return list(permutations(range(1, n + 1)))
+
     def grilles_comme_tuples(self):
-        """
-        Transforme une grille en tuple
-        """
         TPL = []
-        for k in range(len(self.state)): #nombre de lignes
-            TPL.append(tuple(self.state[k])) #on rajoute chaque ligne de la grille sous forme de tuple
-        TPL = tuple(TPL) #en fait un tuple de tuples
-        return TPL
+        for k in range(len(self.state)):
+            TPL.append(tuple(self.state[k]))
+        return tuple(TPL)
 
-    #on part de ces listes et on les met sous forme de grilles. Renvoie tous les états possible de la grille 
-    def liste_de_noeuds(self): 
+    def liste_de_noeuds(self):
         tous_les_noeuds = []
-        liste = Grid.permut(self.m*self.m) #liste de toutes les permutations possibles
-        for i in liste :
-            noeud = []
-            grille = list(i) 
-            #on découpe la liste pour constituer les lignes
-            for k in range(self.m): 
-                noeud.append(grille[self.n*k:(k+1)*self.n])
-            # on convertit tout en tuples pour que ce soit immuable 
-            for k in range(len(noeud)):
-                noeud[k] = tuple(noeud[k])
-            noeud = tuple(noeud)
-            tous_les_noeuds.append(noeud)
-        return tous_les_noeuds # on crée une liste tous_les_noeuds qui contient des tuples qui représentent tous les états de la grille 
+        self.state_to_id = {}
+        self.id_to_state = {}
+        liste = Grid.permut(self.m * self.n)
+        for i, perm in enumerate(liste):
+            noeud = [perm[j * self.n:(j + 1) * self.n] for j in range(self.m)]
+            noeud_tuple = tuple(tuple(row) for row in noeud)
+            if noeud_tuple not in self.state_to_id:
+                node_id = len(self.state_to_id) + 1
+                self.state_to_id[noeud_tuple] = node_id
+                self.id_to_state[node_id] = noeud_tuple
+                tous_les_noeuds.append(node_id)
+        return tous_les_noeuds
 
-    def construire_le_graph(self): 
+    def construire_le_graph(self):
+        from graph import Graph  # Make sure to have the Graph class defined or imported correctly
+
         tous_les_noeuds = self.liste_de_noeuds()
         graph_etats_grille = Graph(tous_les_noeuds)
-    
-        #tous_les_noeuds est un tuple que l'on convertit en liste 
-        for etat in tous_les_noeuds : 
-            liste_grille = [[] for k in range(len(etat))] #liste vide
-            for ligne in range(len(etat)): 
-                for colonne in range(len(etat[ligne])):
-                    liste_grille[ligne].append(etat[ligne][colonne])
-    
-            #On a obtenu une liste de listes que l'on transforme en grille 
-            grille = Grid(len(liste_grille),len(liste_grille[0]),liste_grille)
 
-             #on crée les arrêtes entre deux grilles reliées par un swap horizontal
-            for colonne in range(grille.n-1):
-                for ligne in range(grille.m):
-                    grille2 = copy.deepcopy(grille)
-                    grille2.swap((ligne,colonne),(ligne, colonne +1))
-                    graph_etats_grille.add_edge(grille.grilles_comme_tuples(),grille2.grilles_comme_tuples())
-            
-            #on fait de même pour deux grilles reliées par un swap vertical 
-            for ligne in range(grille.m-1):
+        for etat_id in tous_les_noeuds:
+            etat = self.id_to_state[etat_id]
+            grille = Grid(self.m, self.n, [list(row) for row in etat])
+            for ligne in range(grille.m):
                 for colonne in range(grille.n):
-                    grille2 = copy.deepcopy(grille)
-                    grille2.swap((ligne,colonne),(ligne+1,colonne))
-                    graph_etats_grille.add_edge(grille.grilles_comme_tuples(),grille2.grilles_comme_tuples())
+                    if colonne < grille.n - 1:  # Swap right
+                        grille2 = copy.deepcopy(grille)
+                        grille2.swap((ligne, colonne), (ligne, colonne + 1))
+                        graph_etats_grille.add_edge(etat_id, self.state_to_id[grille2.grilles_comme_tuples()])
+                    if ligne < grille.m - 1:  # Swap down
+                        grille3 = copy.deepcopy(grille)
+                        grille3.swap((ligne, colonne), (ligne + 1, colonne))
+                        graph_etats_grille.add_edge(etat_id, self.state_to_id[grille3.grilles_comme_tuples()])
 
-        return graph_etats_grille 
+        return graph_etats_grille
 
     @classmethod
     def grid_from_file(cls, file_name): 
