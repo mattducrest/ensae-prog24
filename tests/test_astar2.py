@@ -29,3 +29,6 @@ class Test_Astar2(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+    """ quand on lance le test Astar2 on voir bien comment la grille est en train d'être triée mais 
+    contrairement à astar1 Astar2 ne renvoie pas le bon chemin ni le bon nombre de swaps" 
