@@ -1,5 +1,6 @@
 from grid import Grid
 import random
+import heapq
 
 "Cette solution très brutale fonctionne jusqu'a des matrice de taille 3*3. Sur mon pc il faut environ 3 secondes en moyenne pour"
 "ordonner une matrice 3*3. Pour une matrice 4*4 à part coup de chance majeur il faudrait environ 5 heures. Il est indéniable que cette fonction"
