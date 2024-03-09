@@ -1,5 +1,3 @@
-
-
 import sys 
 sys.path.append("swap_puzzle/")
 

@@ -50,7 +50,7 @@ class SolverSearch():
 
     def find_coordinates_x(self, grid, x:int):
         """
-        Get the cell's coordenates (i,j) of an integer
+        Get the cell's coordinates (i,j) of an integer
 
         Parameters: 
         -----------

@@ -23,5 +23,3 @@ class Test_Solver(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-    sys.path.append("swap_puzzle/")
