@@ -99,6 +99,7 @@ class SolverSearch():
         for x in range(1, self.m * self.n + 1):
             self.drag_x(x)
         return sequence_swaps
+    
 
 
 """

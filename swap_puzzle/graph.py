@@ -83,7 +83,7 @@ class Graph:
 
     import os
 
-    def bfs(self):
+    def bfs_1(self, src, dst): 
         """
         Finds a shortest path from src to dst by BFS.  
 
@@ -99,28 +99,89 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        def bfs_1(src, dst):
-            if src == dst:
-                return [src]
-            visited = {src}
-            queue = [(src, [src])]
-            while queue:
-                current, path = queue.pop(0)
-                for neighbor in self.graph[current]:
-                    if neighbor == dst:
-                        return path + [neighbor]
+
+        path = [src]
+        queue = [src]
+        all_paths = {src: [src]}
+        visited = []
+
+        while queue:
+            node = queue.pop(0)
+            if dst not in self.graph[node]:
+                for neighbor in self.graph[node]:
                     if neighbor not in visited:
-                        visited.add(neighbor)
-                        queue.append((neighbor, path + [neighbor]))
+                        queue.append(neighbor)
+                        all_paths[neighbor] = all_paths[node] + [neighbor]
+                        visited.append(neighbor)
+            else:
+                path = all_paths[node] + [dst]
+                queue = []
+            visited.append(node)
+
+        if dst in path:
+            return path
+        else:
             return None
-
-        output_file = self.os.path.join("tests", "output.txt")
-
-        with open(output_file, 'w') as f:
+        
+    def get_solution_bfs_1(self):
+        output_file = self.os.path.join("tests","output_bfs_1.txt")
+        
+        with open (output_file,"w") as f:
             for src in self.nodes:
                 for dst in self.nodes:
                     if src < dst:
-                        path = bfs_1(src, dst)
+                        path = self.bfs_1(src, dst)
+                        if path:
+                            distance = len(path) - 1
+                            f.write(f"{src} {dst} {distance} {path}\n")
+                        else:
+                            f.write(f"{src} {dst} None\n")
+
+    def bfs_2(self, src, dst): 
+        """
+        Finds a shortest path from src to dst by BFS.  
+
+        Parameters: 
+        -----------
+        src: NodeType
+            The source node.
+        dst: NodeType
+            The destination node.
+
+        Output: 
+        -------
+        path: list[NodeType] | None
+            The shortest path from src to dst. Returns None if dst is not reachable from src
+        """ 
+
+        visited = set()
+        queue = [[src]]
+        
+        while queue:
+            path = queue.pop(0)
+            node = path[-1]
+            
+            if node == dst:
+                return path
+            
+            if node not in visited:
+                neighbors = self.graph[node]
+                for neighbor in neighbors:
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    queue.append(new_path)
+                visited.add(node)    
+        
+        return None
+    
+    def get_solution_bfs_2(self):
+        output_file = self.os.path.join("tests","output_bfs_2.txt")
+        
+        with open (output_file,"w") as f:
+            for src in self.nodes:
+                for dst in self.nodes:
+                    if src < dst:
+                        path = self.bfs_2(src, dst)
                         if path:
                             distance = len(path) - 1
                             f.write(f"{src} {dst} {distance} {path}\n")

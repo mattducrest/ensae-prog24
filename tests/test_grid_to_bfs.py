@@ -8,6 +8,7 @@ from grid import Grid
 
 g = Grid.grid_from_file("input/grid0.in")
 test = Grid.construire_le_graph(g)
+print(test)
 bfs = Graph.bfs(test)
 print(bfs)
 
