@@ -221,7 +221,7 @@ def A_star2(grid):
     while Queue != [] and not(soltion_trouvee) :#tant que la queue n'est pas vide et que l'on a pas trouvé la solution 
             
         grille_actuelle = heapq.heappop(Queue) 
-        """récupère et retire de la queue le tuple qui représente la grille actuelle et le chemin le plus court
+        """récupère et retire de la queue le tuple qui représente la grille actuelle et la taille du chemin le plus court
         parcouru jusqu'à présent """
         grille_actuelle = grille_actuelle[1] #on extrait la grille en question
 
