@@ -3,17 +3,17 @@ sys.path.append("swap_puzzle/")
 
 import unittest 
 from grid import Grid
-from solver import A_star
+from solver import A_star2
 import copy 
 
-class Test_Astar(unittest.TestCase): 
-    def test_A_star(self):
+class Test_Astar2(unittest.TestCase): 
+    def test_A_star2(self):
         # Grille de test
-        g = Grid.grid_from_file("input/grid0.in") 
-        solution = Grid(2,2).grilles_comme_tuples()  # Grille ordonnée
+        g = Grid.grid_from_file("input/grid3.in") 
+        solution = Grid(4,4).grilles_comme_tuples()  # Grille ordonnée
         
         # Appel de la méthode A* pour trouver le chemin
-        chemin = A_star(g)
+        chemin = A_star2(g)
 
         # Appliquer les swaps selon le chemin obtenu pour vérifier si on aboutit à la solution
         grille_test = copy.deepcopy(g)
@@ -29,7 +29,3 @@ class Test_Astar(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-""" ce test teste la méthode A* numéro 1 qui fonctionne avec la classe SolverRandom 
-et qui ne peut donc pas traiter les grilles trop grandes
-"""

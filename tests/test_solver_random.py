@@ -16,6 +16,7 @@ class Test_Solver(unittest.TestCase):
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f"The function took {elapsed_time} seconds to run.")
+
     
 """""
     def test_grid1(self):

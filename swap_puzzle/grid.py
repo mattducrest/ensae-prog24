@@ -243,16 +243,16 @@ class Grid():
         # On fait tous les swaps horizontaux et on ajoute les edges
         for i in range(self.n-1):
             for j in range(self.m):
-                adj = self.copy()
-                ajd.swap((j,i),(j,i+1))
+                adj = copy.deepcopy(self)
+                adj.swap((j,i),(j,i+1))
                 liste_adj.append((adj.grilles_comme_tuples(),((j,i),(j,i+1))))
 
         # On fait tous les swaps verticaux on ajoute les edges
         for i in range(self.m-1):
             for j in range(self.n):
-                adj = self.copy()
+                adj = copy.deepcopy(self)
                 adj.swap((i,j),(i+1,j))
-                liste_adj.append((other.grilles_comme_tuples(),((i,j),(i+1,j))))
+                liste_adj.append((adj.grilles_comme_tuples(),((i,j),(i+1,j))))
         
         return liste_adj   
  
