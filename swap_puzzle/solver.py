@@ -73,14 +73,14 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
         print(f"Total number of swaps: {swaps}") 
         return self
 
-"La fonction get_solution ne fonctionne pas. L'idée est d'ordonner les coordonnées par lignes et par colonnes."
-"Ceci ne fonctionne pas parce que certaines coordonnées peuvent être 'coincées' à gauche. Par example, la fonction dit que la matrice:"
-" [[1,3,4], [2,5,6]] est ordonnée. En effet elle l'est si on ne regarde que les lignes et les colonnes.  Mais on ne peut pas déplacer le 2"
-"Parce qu'il est plus grand que 1 et plus petit que 5, on est donc coincés"
-""" 
+    "La fonction get_solution ne fonctionne pas. L'idée est d'ordonner les coordonnées par lignes et par colonnes."
+    "Ceci ne fonctionne pas parce que certaines coordonnées peuvent être 'coincées' à gauche. Par example, la fonction dit que la matrice:"
+    " [[1,3,4], [2,5,6]] est ordonnée. En effet elle l'est si on ne regarde que les lignes et les colonnes.  Mais on ne peut pas déplacer le 2"
+    "Parce qu'il est plus grand que 1 et plus petit que 5, on est donc coincés"
+    """ 
 
 
-     """implémentation de A*
+"""implémentation de A*
 
       paramètres: 
         -----------
@@ -90,10 +90,10 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
         image: 
         -------
         chemin : liste de listes
-     """
+"""
 
-     @staticmethod
-    def A_star(grid):
+@staticmethod
+def A_star(grid):
 
         Solution = Grid(grid.m, grid.n).grilles_comme_tuples() 
         Queue = [(0,grid.grilles_comme_tuples())] 
@@ -145,3 +145,4 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
             chemin.append(swap) #on rajoute le swap au chemin
             chemin.reverse() #on remet le chemin dans l'ordre
         return chemin
+
