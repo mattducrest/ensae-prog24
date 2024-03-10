@@ -9,8 +9,8 @@ import copy
 class Test_Astar2(unittest.TestCase): 
     def test_A_star2(self):
         # Grille de test
-        g = Grid.grid_from_file("input/grid3.in") 
-        solution = Grid(4,4).grilles_comme_tuples()  # Grille ordonnée
+        g = Grid.grid_from_file("input/grid2.in") 
+        solution = Grid(3,3).grilles_comme_tuples()  # Grille ordonnée
         
         # Appel de la méthode A* pour trouver le chemin
         chemin = A_star2(g)
@@ -30,5 +30,8 @@ class Test_Astar2(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-    """ quand on lance le test Astar2 on voir bien comment la grille est en train d'être triée mais 
-    contrairement à astar1 Astar2 ne renvoie pas le bon chemin ni le bon nombre de swaps" 
+""" 
+quand on lance le test Astar2 on voir bien comment la grille est en train d'être triée mais 
+contrairement à astar1 Astar2 ne renvoie pas le bon chemin ni le bon nombre de swaps
+
+""" 

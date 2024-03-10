@@ -46,7 +46,7 @@ class SolverRandom():
 
 sequence_swaps=[] #global variable
 
-
+"Une solution bien meilleur qui consiste à chercher chaque nombre dans l'ordre croissant et le mettre où il doit être dans la grille"
 class SolverSearch(): 
     def __init__(self, m, n, initial_state):
         self.grid = Grid(m, n, initial_state)

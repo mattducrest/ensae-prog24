@@ -171,9 +171,32 @@ class Grid():
                 self.id_to_state[node_id] = noeud_tuple
                 tous_les_noeuds.append(node_id)
         return tous_les_noeuds
+    
+    def get_node_id_from_state(self, grid_state):
+        """
+        Returns the node ID corresponding to the given grid state.
+
+        Parameters:
+        -----------
+        grid_state: list[list[int]]
+            The state of the grid.
+
+        Returns:
+        -------
+        node_id: int
+            The ID of the node representing the given grid state.
+        """
+        state_tuple = tuple(tuple(row) for row in grid_state)
+        if state_tuple not in self.state_to_id:
+            self.liste_de_noeuds()  
+
+        if state_tuple in self.state_to_id:
+            return self.state_to_id[state_tuple]
+        else:
+            raise ValueError("Invalid grid state.")
 
     def construire_le_graph(self):
-        from graph import Graph  # Make sure to have the Graph class defined or imported correctly
+        from graph import Graph  
 
         tous_les_noeuds = self.liste_de_noeuds()
         graph_etats_grille = Graph(tous_les_noeuds)

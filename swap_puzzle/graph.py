@@ -83,6 +83,8 @@ class Graph:
 
     import os
 
+#première solution de bfs non optimisée
+    
     def bfs_1(self, src, dst): 
         """
         Finds a shortest path from src to dst by BFS.  
@@ -137,6 +139,9 @@ class Graph:
                         else:
                             f.write(f"{src} {dst} None\n")
 
+# ce bfs est optimisé car il utilise un set a la place d'une liste pour garder une trace des noeuds qu'il a visité. Le set lui permet
+# de ne pas garder de doublons, ce qui permet de réduire la complexité de stockage
+                            
     def bfs_2(self, src, dst): 
         """
         Finds a shortest path from src to dst by BFS.  
