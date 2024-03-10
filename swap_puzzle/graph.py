@@ -102,10 +102,10 @@ class Graph:
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
 
-        path = [src]
-        queue = [src]
-        all_paths = {src: [src]}
-        visited = []
+        path = [src] # une liste qui va stocker le chemin le plus court entre src et dst
+        queue = [src] # la queue pour l'algo BFS
+        all_paths = {src: [src]} # un dictionnaire qui stock tous les chemins de chaque src vers chaque noeud visité
+        visited = [] # liste de tous les noeuds visités
 
         while queue:
             node = queue.pop(0)
@@ -126,7 +126,7 @@ class Graph:
             return None
         
     def get_solution_bfs_1(self):
-        output_file = self.os.path.join("tests","output_bfs_1.txt")
+        output_file = self.os.path.join("tests","output_bfs_1.txt") # pour que le output soit dans le folder tests
         
         with open (output_file,"w") as f:
             for src in self.nodes:
@@ -180,7 +180,7 @@ class Graph:
         return None
     
     def get_solution_bfs_2(self):
-        output_file = self.os.path.join("tests","output_bfs_2.txt")
+        output_file = self.os.path.join("tests","output_bfs_2.txt") # pour que le output soit dans le folder tests
         
         with open (output_file,"w") as f:
             for src in self.nodes:

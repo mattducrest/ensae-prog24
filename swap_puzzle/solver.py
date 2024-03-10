@@ -126,12 +126,6 @@ Première méthode que l'on a essayée mais qui ne fonctionne pas :
                     sequence.append(((i,j),(i, j+1))) # on prend note des deux cellules qu'on a swap
                     swaps = swaps + 1 # on incrément le compteur du total des swaps
 
-                
-                if self.state[((i+1)*self.n)+1][0] < ((i+1)*self.n+1) and i < self.m-1:
-                   self.swap((((i+1)*self.n)+1),0),(i*self.n,0)
-                   sequence.append((((i+1)*self.n+1,0),(i*self.n+1, 0)))
-                   swaps = swaps + 1 # on incrément le compteur du total des swaps
-
         print(sequence) 
         print(f"Total number of swaps: {swaps}") 
         return self
